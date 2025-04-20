@@ -1,0 +1,66 @@
+void merge(vector<int> &arr, int start ,int end){
+    int mid = start+(end-start)/2;
+    int len1 =mid-start+1; 
+    int len2 =end-mid;
+
+    vector<int> first(len1);
+    vector<int> second(len2);
+
+    int mainarrayindex=start;
+
+    for(int i=0; i<len1; i++){
+        first[i]=arr[mainarrayindex++];
+
+    }
+
+    for(int i=0; i<len2; i++){
+        second[i] =arr[mainarrayindex++];
+    }
+
+    int index1= 0;
+    int index2=0;
+
+    mainarrayindex = start;
+
+    while(index1<len1 && index2<len2){
+        if(first[index1]<=second[index2]){
+            arr[mainarrayindex++] = first[index1++];
+        }
+        else{
+            arr[mainarrayindex++]=second[index2++];
+        }
+    }
+
+    while(index1<len1){
+        arr[mainarrayindex++]=first[index1++];
+    }
+
+    while(index2<len2){
+        arr[mainarrayindex++]=second[index2++];
+    }
+
+
+}
+
+void merge_sort(vector < int > & arr, int start , int end) {
+    // Write your code here.
+    if(start<end){
+        int mid =start+(end-start)/2;
+        merge_sort(arr , start, mid);
+        merge_sort(arr, mid+1, end);
+
+        merge(arr, start, end);
+    }
+    
+    return;
+
+    
+}
+
+vector<int> mergeSort(vector<int> &arr, int n){
+    int start =0;
+    int end = n-1;
+
+    merge_sort(arr, start , end);
+    return arr; 
+}
